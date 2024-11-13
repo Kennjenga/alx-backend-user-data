@@ -1,5 +1,8 @@
 # Basic Authentication
 
+run server -- API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=basic_auth python3 -m api.v1.app
+test endpoint: curl "http://0.0.0.0:5000/api/v1/users"
+
 ## Background Context
 
 In this project, you will learn what the authentication process means and implement Basic Authentication on a simple API.
