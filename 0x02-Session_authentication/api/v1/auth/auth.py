@@ -3,11 +3,13 @@
 A module: Defines an template class for all template
 for all authentication system implemented in this application
 """
+import os
 from flask import request
 
 from typing import (
     List,
-    TypeVar
+    TypeVar,
+    Union
 )
 
 
@@ -35,7 +37,7 @@ class Auth:
                     return False
         return True
 
-    def authorization_header(self, request=None) -> str:
+    def authorization_header(self, request=None) -> Union[str, None]:
         """
         Extract authorization header
         """
@@ -44,8 +46,17 @@ class Auth:
             return None
         return auth
 
-    def current_user(self, request=None) -> TypeVar('User'):
+    def current_user(self, request=None) -> Union[TypeVar('User'), None]:
         """
         Holds the current authenticated logged in user
         """
         return None
+
+    def session_cookie(self, request=None) -> Union[str, None]:
+        """
+        Get a cookie value from a request object
+        """
+        if request is None:
+            return None
+        cookie_name = os.getenv('SESSION_NAME')
+        return request.cookies.get(cookie_name)
